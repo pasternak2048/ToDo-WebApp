@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 
 namespace ToDo_App.Interfaces
 {
-    interface IRepository<T> : IDisposable
+    interface IRepository<T>
         where T : class
     {
-        IEnumerable<T> GetItemList();
-        T GetItem(int id);
+        IEnumerable<T> GetAll();
+        T Get(int id);
         void Create(T item);
         void Update(T item);
         void Delete(int id);
-        void Save();
     }
 }

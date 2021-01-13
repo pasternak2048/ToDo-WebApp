@@ -17,21 +17,20 @@ namespace ToDo_App.Repositories
             _context = context;
         }
 
-        public void Create(ToDo item)
+        public IEnumerable<ToDo> GetAll()
         {
-            _context.ToDos.Add(item);
+            return _context.ToDos;
         }
 
-        public ToDo GetItem(int id)
+        public ToDo Get(int id)
         {
             return _context.ToDos.Find(id);
         }
 
-        public void Delete(int id)
+
+        public void Create(ToDo item)
         {
-            ToDo todo = _context.ToDos.Find(id);
-            if (todo != null)
-                _context.ToDos.Remove(todo);
+            _context.ToDos.Add(item);
         }
 
         public void Update(ToDo item)
@@ -39,35 +38,12 @@ namespace ToDo_App.Repositories
             _context.Entry(item).State = EntityState.Modified;
         }
 
-        public IEnumerable<ToDo> GetItemList()
+
+        public void Delete(int id)
         {
-            return _context.ToDos;
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
-
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            ToDo todo = _context.ToDos.Find(id);
+            if (todo != null)
+                _context.ToDos.Remove(todo);
         }
     }
 }
