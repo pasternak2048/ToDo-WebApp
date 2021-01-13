@@ -8,32 +8,32 @@ using ToDo_App.Models;
 
 namespace ToDo_App.Repositories
 {
-    public class MSSQLToDoRepository : IRepository<ToDo>
+    public class MSSQLRoleRepository : IRepository<Role>
     {
         private readonly ToDoContext _context;
 
-        public MSSQLToDoRepository(ToDoContext context)
+        public MSSQLRoleRepository(ToDoContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<ToDo> GetAll()
+        public IEnumerable<Role> GetAll()
         {
-            return _context.ToDos.Include(x=>x.User);
+            return _context.Roles;
         }
 
-        public ToDo Get(int id)
+        public Role Get(int id)
         {
-            return _context.ToDos.Find(id);
+            return _context.Roles.Find(id);
         }
 
 
-        public void Create(ToDo item)
+        public void Create(Role item)
         {
-            _context.ToDos.Add(item);
+            _context.Roles.Add(item);
         }
 
-        public void Update(ToDo item)
+        public void Update(Role item)
         {
             _context.Entry(item).State = EntityState.Modified;
         }
@@ -41,9 +41,9 @@ namespace ToDo_App.Repositories
 
         public void Delete(int id)
         {
-            ToDo todo = _context.ToDos.Find(id);
-            if (todo != null)
-                _context.ToDos.Remove(todo);
+            Role role = _context.Roles.Find(id);
+            if (role != null)
+                _context.Roles.Remove(role);
         }
     }
 }
