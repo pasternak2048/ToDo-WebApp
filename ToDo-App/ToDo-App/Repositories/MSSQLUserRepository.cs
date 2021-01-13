@@ -19,7 +19,7 @@ namespace ToDo_App.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users;
+            return _context.Users.Include(x=>x.Role);
         }
 
 

@@ -11,6 +11,7 @@ namespace ToDo_App.Repositories
         private readonly ToDoContext _context;
         private MSSQLToDoRepository toDoRepository;
         private MSSQLUserRepository userRepository;
+        private MSSQLRoleRepository roleRepository;
 
 
         public UnitOfWork(ToDoContext context)
@@ -36,6 +37,16 @@ namespace ToDo_App.Repositories
                 if (userRepository == null)
                     userRepository = new MSSQLUserRepository(_context);
                 return userRepository;
+            }
+        }
+
+        public MSSQLRoleRepository Roles
+        {
+            get
+            {
+                if (roleRepository == null)
+                    roleRepository = new MSSQLRoleRepository(_context);
+                return roleRepository;
             }
         }
 
