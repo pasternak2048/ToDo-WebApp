@@ -90,7 +90,7 @@ namespace ToDo_App.Controllers
             }
 
             var todo =  unitOfWork.ToDos.Get(id);
-            if (todo == null)
+            if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace ToDo_App.Controllers
         [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
         {
-            if (id != todo.Id)
+            if (id != todo.Id || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id)
             {
                 return NotFound();
             }
@@ -143,7 +143,7 @@ namespace ToDo_App.Controllers
             }
 
             var todo = unitOfWork.ToDos.Get(id);
-            if (todo == null)
+            if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id)
             {
                 return NotFound();
             }
