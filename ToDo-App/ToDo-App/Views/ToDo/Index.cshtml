@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsCompleted)
             </th>
+            <th>
+               Actions
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,11 +41,9 @@
                     @Html.DisplayFor(modelItem => item.IsCompleted)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a> | </a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a> | </a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
