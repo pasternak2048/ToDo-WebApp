@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +80,61 @@ namespace ToDo_App.Controllers
 
 
 
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var todo =  unitOfWork.ToDos.Get(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            
+            return View(todo);
+        }
+
+       
+        [HttpPost]
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        {
+            if (id != todo.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    unitOfWork.ToDos.Update(todo);
+                    unitOfWork.Save();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ToDoExists(todo.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            
+            return View(todo);
+        }
 
 
+        private bool ToDoExists(int id)
+        {
+            return unitOfWork.ToDos.GetAll().Any();
+        }
     }
 }
