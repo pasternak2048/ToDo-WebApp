@@ -69,6 +69,7 @@ namespace ToDo_App.Controllers
         {
             if (ModelState.IsValid)
             {
+                todo.UserId = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id;
                 unitOfWork.ToDos.Create(todo);
                 unitOfWork.Save();
 
