@@ -22,7 +22,7 @@ namespace ToDo_App.Repositories
             return _context.ToDos.Include(x=>x.User);
         }
 
-        public ToDo Get(int id)
+        public ToDo Get(int? id)
         {
             return _context.ToDos.Find(id);
         }

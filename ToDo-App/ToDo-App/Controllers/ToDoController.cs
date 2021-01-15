@@ -35,8 +35,27 @@ namespace ToDo_App.Controllers
             }
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var todo = unitOfWork.ToDos.Get(id);
+                
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            return View(todo);
+        }
+
+
 
         [HttpGet]
+        [Authorize(Roles = "admin, user")]
         public IActionResult Create()
         {
             return View();
@@ -44,6 +63,7 @@ namespace ToDo_App.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
         {
             if (ModelState.IsValid)
@@ -56,6 +76,10 @@ namespace ToDo_App.Controllers
 
             return View(todo);
         }
+
+
+
+
 
     }
 }

@@ -22,7 +22,7 @@ namespace ToDo_App.Repositories
             return _context.Roles;
         }
 
-        public Role Get(int id)
+        public Role Get(int? id)
         {
             return _context.Roles.Find(id);
         }
