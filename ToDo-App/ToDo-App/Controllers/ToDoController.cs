@@ -167,6 +167,35 @@ namespace ToDo_App.Controllers
 
 
 
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> MarkAsComplete(int? id)
+        {
+            ToDo todo = unitOfWork.ToDos.Get(id);
+
+            if (ModelState.IsValid && (todo.UserId == unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+                || User.IsInRole("admin")))
+            {
+                try
+                {
+                    todo.IsCompleted = !todo.IsCompleted;
+                    unitOfWork.ToDos.Update(todo);
+                    unitOfWork.Save();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ToDoExists(todo.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
         private bool ToDoExists(int id)
         {
             return unitOfWork.ToDos.GetAll().Any();
