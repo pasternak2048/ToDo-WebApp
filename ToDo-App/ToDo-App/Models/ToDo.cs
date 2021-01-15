@@ -14,6 +14,7 @@ namespace ToDo_App.Models
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public DateTimeOffset Deadline { get; set; }
+        public bool IsCompleted { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
     }
