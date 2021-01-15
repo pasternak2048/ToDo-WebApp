@@ -24,7 +24,8 @@ namespace ToDo_App.Repositories
 
         public ToDo Get(int? id)
         {
-            return _context.ToDos.Find(id);
+            return _context.ToDos.Include(x=>x.User)
+                .FirstOrDefault(y=>y.Id == id);
         }
 
 
