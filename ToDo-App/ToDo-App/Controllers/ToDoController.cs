@@ -101,7 +101,7 @@ namespace ToDo_App.Controllers
        
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
         {
             if (id != todo.Id)
             {
