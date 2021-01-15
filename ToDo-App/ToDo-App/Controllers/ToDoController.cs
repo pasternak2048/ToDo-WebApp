@@ -36,5 +36,26 @@ namespace ToDo_App.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        {
+            if (ModelState.IsValid)
+            {
+                unitOfWork.ToDos.Create(todo);
+                unitOfWork.Save();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(todo);
+        }
+
     }
 }
