@@ -15,16 +15,16 @@ namespace ToDo_App.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        UnitOfWork unityOfWork;
+        UnitOfWork unitOfWork;
         public HomeController(ILogger<HomeController> logger, ToDoContext context)
         {
             _logger = logger;
-            unityOfWork = new UnitOfWork(context);
+            unitOfWork = new UnitOfWork(context);
         }
 
         public IActionResult Index()
         {
-            User currentUser = unityOfWork.Users.GetAll().Where(x => x.Email == this.User.Identity.Name).First();
+            User currentUser = unitOfWork.Users.GetAll().Where(x => x.Email == this.User.Identity.Name).First();
             return View(currentUser);
         }
 
