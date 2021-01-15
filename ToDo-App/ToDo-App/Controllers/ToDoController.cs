@@ -132,6 +132,36 @@ namespace ToDo_App.Controllers
         }
 
 
+
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var todo = unitOfWork.ToDos.Get(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            return View(todo);
+        }
+ 
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            unitOfWork.ToDos.Delete(id);
+            unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
         private bool ToDoExists(int id)
         {
             return unitOfWork.ToDos.GetAll().Any();
