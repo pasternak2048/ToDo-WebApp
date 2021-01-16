@@ -20,7 +20,7 @@ namespace ToDo_App.Controllers
         }
 
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 
@@ -36,7 +36,7 @@ namespace ToDo_App.Controllers
             }
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -103,7 +103,7 @@ namespace ToDo_App.Controllers
        
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
+        public IActionResult Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
         {
             if (id != todo.Id || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
                 && !User.IsInRole("admin"))
@@ -158,7 +158,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             unitOfWork.ToDos.Delete(id);
             unitOfWork.Save();
@@ -168,7 +168,7 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> MarkAsComplete(int? id)
+        public IActionResult MarkAsComplete(int? id)
         {
             ToDo todo = unitOfWork.ToDos.Get(id);
 
