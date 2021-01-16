@@ -12,6 +12,12 @@
 <table class="table">
     <thead>
         <tr>
+            @if (User.IsInRole("admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.TaskName)
             </th>
@@ -22,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.IsCompleted)
             </th>
             <th>
-               Actions
+                Actions
             </th>
             <th></th>
         </tr>
@@ -31,6 +37,12 @@
         @foreach (var item in Model)
         {
             <tr>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.TaskName)
                 </td>
