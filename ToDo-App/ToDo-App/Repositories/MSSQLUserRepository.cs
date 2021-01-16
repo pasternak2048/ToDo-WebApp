@@ -23,9 +23,10 @@ namespace ToDo_App.Repositories
         }
 
 
-        public User Get(int id)
+        public User Get(int? id)
         {
-            return _context.Users.Find(id);
+            return _context.Users.Include(x => x.Role)
+                .FirstOrDefault(y => y.Id == id);
         }
 
 
