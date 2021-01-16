@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ToDo_App.Models.ToDo>
+﻿@using ToDo_App.Models.Abstractions 
+@model IndexViewModel<ToDo>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,17 +16,17 @@
             @if (User.IsInRole("admin"))
             {
                 <th>
-                    @Html.DisplayNameFor(model => model.User.Email)
+                    User Email
                 </th>
             }
             <th>
-                @Html.DisplayNameFor(model => model.TaskName)
+                Task Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deadline)
+                Deadline
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsCompleted)
+                Is completed
             </th>
             <th>
                 Actions
@@ -34,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 @if (User.IsInRole("admin"))
@@ -61,3 +62,22 @@
         }
     </tbody>
 </table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Back
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Next
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

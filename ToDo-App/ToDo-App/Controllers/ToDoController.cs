@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDo_App.Models;
+using ToDo_App.Models.Abstractions;
 using ToDo_App.Repositories;
 
 namespace ToDo_App.Controllers
@@ -13,6 +14,7 @@ namespace ToDo_App.Controllers
     public class ToDoController : Controller
     {
         UnitOfWork unitOfWork;
+        private const int _pageSize = 8;
 
         public ToDoController(ToDoContext context)
         {
@@ -20,19 +22,41 @@ namespace ToDo_App.Controllers
         }
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
 
             if (currentUser.IsInRole("user"))
             {
-                var shoppingContext = unitOfWork.ToDos.GetAll().Where(i => i.User.Email == User.Identity.Name);
-                return View(shoppingContext.ToList());
+                var count = unitOfWork.ToDos.GetAll().Where(i => i.User.Email == User.Identity.Name).Count();
+                var items = unitOfWork.ToDos.GetAll().Where(i => i.User.Email == User.Identity.Name)
+                    .Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+
+                var pageViewModel = new PageViewModel(count, page, _pageSize);
+                var viewModel = new IndexViewModel<ToDo>
+                {
+                    PageViewModel = pageViewModel,
+                    Items = items
+                };
+
+                
+                return View(viewModel);
             }
+
             else
             {
-                var shoppingContext = unitOfWork.ToDos.GetAll();
-                return View(shoppingContext.ToList());
+                var count = unitOfWork.ToDos.GetAll().Count();
+                var items = unitOfWork.ToDos.GetAll()
+                    .Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+
+                var pageViewModel = new PageViewModel(count, page, _pageSize);
+                var viewModel = new IndexViewModel<ToDo>
+                {
+                    PageViewModel = pageViewModel,
+                    Items = items
+                };
+
+                return View(viewModel);
             }
         }
 
