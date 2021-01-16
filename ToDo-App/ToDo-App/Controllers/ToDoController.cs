@@ -73,8 +73,9 @@ namespace ToDo_App.Controllers
         }
 
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, int page)
         {
+            ViewData["Page"] = page;
             if (id == null)
             {
                 return NotFound();
@@ -95,8 +96,9 @@ namespace ToDo_App.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Create()
+        public IActionResult Create(int page)
         {
+            ViewData["Page"] = page;
             return View();
         }
 
@@ -120,8 +122,9 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, int page)
         {
+            ViewData["Page"] = page;
             if (id == null)
             {
                 return NotFound();
@@ -175,8 +178,10 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int page)
         {
+            ViewData["Page"] = page;
+
             if (id == null)
             {
                 return NotFound();
@@ -195,17 +200,19 @@ namespace ToDo_App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "admin, user")]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id, int page)
         {
+            ViewData["Page"] = page;
+
             unitOfWork.ToDos.Delete(id);
             unitOfWork.Save();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { page = page });
         }
 
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult MarkAsComplete(int? id)
+        public IActionResult MarkAsComplete(int? id, int page, ToDoSortState sortOrder)
         {
             ToDo todo = unitOfWork.ToDos.Get(id);
 
@@ -231,7 +238,7 @@ namespace ToDo_App.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new {page = page});
         }
         
 
@@ -241,10 +248,12 @@ namespace ToDo_App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         private bool ToDoExists(int id)
         {
             return unitOfWork.ToDos.GetAll().Any();
         }
+
 
         private IEnumerable<ToDo> GetSorted(IEnumerable<ToDo> items, ToDoSortState sortOrder)
         {
