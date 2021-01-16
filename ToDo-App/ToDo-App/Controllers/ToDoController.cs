@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo_App.Enums;
 using ToDo_App.Models;
 using ToDo_App.Models.Abstractions;
 using ToDo_App.Repositories;
@@ -15,22 +16,31 @@ namespace ToDo_App.Controllers
     {
         UnitOfWork unitOfWork;
         private const int _pageSize = 8;
-
+        private static string _taskStatus = "IsOpen";
         public ToDoController(ToDoContext context)
         {
             unitOfWork = new UnitOfWork(context);
         }
 
+
         [Authorize(Roles = "admin, user")]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, int page = 1)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var items = unitOfWork.ToDos.GetAll();
+
+            ViewData["DeadlineSort"] = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
+            ViewData["FilterStatus"] = _taskStatus;
+
+            items = GetFilteredByTaskStatus(items, _taskStatus);
 
             if (currentUser.IsInRole("user"))
             {
-                var count = unitOfWork.ToDos.GetAll().Where(i => i.User.Email == User.Identity.Name).Count();
-                var items = unitOfWork.ToDos.GetAll().Where(i => i.User.Email == User.Identity.Name)
+                var count = items.Where(i => i.User.Email == User.Identity.Name).Count();
+                items = items.Where(i => i.User.Email == User.Identity.Name)
                     .Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+
+                items = GetSorted(items, sortOrder);
 
                 var pageViewModel = new PageViewModel(count, page, _pageSize);
                 var viewModel = new IndexViewModel<ToDo>
@@ -39,15 +49,17 @@ namespace ToDo_App.Controllers
                     Items = items
                 };
 
-                
                 return View(viewModel);
             }
 
+
             else
             {
-                var count = unitOfWork.ToDos.GetAll().Count();
-                var items = unitOfWork.ToDos.GetAll()
+                var count = items.Count();
+                items = items
                     .Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
+
+                items = GetSorted(items, sortOrder);
 
                 var pageViewModel = new PageViewModel(count, page, _pageSize);
                 var viewModel = new IndexViewModel<ToDo>
@@ -59,6 +71,7 @@ namespace ToDo_App.Controllers
                 return View(viewModel);
             }
         }
+
 
         public IActionResult Details(int? id)
         {
@@ -68,7 +81,7 @@ namespace ToDo_App.Controllers
             }
 
             var todo = unitOfWork.ToDos.Get(id);
-                
+
             if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
                 && !User.IsInRole("admin"))
             {
@@ -114,17 +127,17 @@ namespace ToDo_App.Controllers
                 return NotFound();
             }
 
-            var todo =  unitOfWork.ToDos.Get(id);
+            var todo = unitOfWork.ToDos.Get(id);
             if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
             }
-            
+
             return View(todo);
         }
 
-       
+
         [HttpPost]
         [Authorize(Roles = "admin, user")]
         public IActionResult Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
@@ -155,7 +168,7 @@ namespace ToDo_App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            
+
             return View(todo);
         }
 
@@ -178,7 +191,7 @@ namespace ToDo_App.Controllers
 
             return View(todo);
         }
- 
+
 
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "admin, user")]
@@ -220,9 +233,42 @@ namespace ToDo_App.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        
+
+        public IActionResult OnlyOpened()
+        {
+            _taskStatus = String.IsNullOrEmpty(_taskStatus) ? "IsOpen" : "";
+            return RedirectToAction(nameof(Index));
+        }
+
         private bool ToDoExists(int id)
         {
             return unitOfWork.ToDos.GetAll().Any();
+        }
+
+        private IEnumerable<ToDo> GetSorted(IEnumerable<ToDo> items, ToDoSortState sortOrder)
+        {
+            items = sortOrder switch
+            {
+                ToDoSortState.DeadlineAsc => items.OrderBy(s => s.Deadline),
+                ToDoSortState.DeadlineDesc => items.OrderByDescending(s => s.Deadline)
+            };
+
+            return items;
+        }
+
+        private IEnumerable<ToDo> GetFilteredByTaskStatus(IEnumerable<ToDo> items, string status)
+        {
+            switch (status)
+            {
+                case "IsOpen":
+                    items = items.Where(i => i.IsCompleted == false);
+                    break;
+                default:
+                    break;
+            }
+
+            return items;
         }
     }
 }

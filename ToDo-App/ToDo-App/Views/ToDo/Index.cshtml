@@ -1,4 +1,4 @@
-﻿@using ToDo_App.Models.Abstractions 
+﻿@using ToDo_App.Models.Abstractions
 @model IndexViewModel<ToDo>
 
 @{
@@ -8,7 +8,17 @@
 <h1>ToDos</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+    @if (ViewData["FilterStatus"] == "IsOpen")
+    {
+        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
+    }
+    else
+    {
+        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show only opened</a>
+    }
+    
+
 </p>
 <table class="table">
     <thead>
@@ -23,7 +33,9 @@
                 Task Name
             </th>
             <th>
-                Deadline
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DeadlineSort" asp-route-page="@Model.PageViewModel.PageNumber">
+                    Deadline
+                </a>
             </th>
             <th>
                 Is completed
