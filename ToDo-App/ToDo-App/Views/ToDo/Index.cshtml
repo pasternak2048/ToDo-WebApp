@@ -1,4 +1,4 @@
-﻿@using ToDo_App.Models.Abstractions 
+﻿@using ToDo_App.Models.Abstractions
 @model IndexViewModel<ToDo>
 
 @{
@@ -8,7 +8,17 @@
 <h1>ToDos</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">Create New</a>
+    @if (ViewData["FilterStatus"] == "IsOpen")
+    {
+        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
+    }
+    else
+    {
+        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show only opened</a>
+    }
+    
+
 </p>
 <table class="table">
     <thead>
@@ -23,7 +33,9 @@
                 Task Name
             </th>
             <th>
-                Deadline
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DeadlineSort" asp-route-page="@Model.PageViewModel.PageNumber">
+                    Deadline
+                </a>
             </th>
             <th>
                 Is completed
@@ -51,12 +63,13 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    <a asp-action="MarkAsComplete" asp-route-id="@item.Id" class="btn bg-transparent">@Html.DisplayFor(modelItem => item.IsCompleted)</a>
+                    <a asp-action="MarkAsComplete" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber"
+                       asp-route-sortOrder="@ViewBag.DeadlineSort" class="btn bg-transparent">@Html.DisplayFor(modelItem => item.IsCompleted)</a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                    <a asp-action="Details" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                    <a asp-action="Delete" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

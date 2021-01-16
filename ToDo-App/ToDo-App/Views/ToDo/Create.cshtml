@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-success" />
-                <a asp-action="Index" class="btn btn-danger" class="btn btn-primary">Cancel</a>
+                <a asp-action="Index" class="btn btn-danger" asp-route-page="@ViewData["Page"]" class="btn btn-primary">Cancel</a>
             </div>
         </form>
     </div>
