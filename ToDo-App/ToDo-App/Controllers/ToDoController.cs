@@ -105,7 +105,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo, int page)
         {
             if (ModelState.IsValid)
             {
@@ -206,7 +206,7 @@ namespace ToDo_App.Controllers
 
             unitOfWork.ToDos.Delete(id);
             unitOfWork.Save();
-            return RedirectToAction("Index", new { page = page });
+            return RedirectToAction("Index", page);
         }
 
 
@@ -238,7 +238,7 @@ namespace ToDo_App.Controllers
                 }
             }
 
-            return RedirectToAction("Index", new {page = page});
+            return RedirectToAction("Index", new { page = page });
         }
         
 

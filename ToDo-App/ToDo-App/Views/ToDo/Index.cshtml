@@ -8,7 +8,7 @@
 <h1>ToDos</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
+    <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">Create New</a>
     @if (ViewData["FilterStatus"] == "IsOpen")
     {
         <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
