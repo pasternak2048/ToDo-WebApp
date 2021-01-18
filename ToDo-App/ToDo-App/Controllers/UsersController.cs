@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,40 @@ namespace ToDo_App.Controllers
                 return NotFound();
             }
 
+            return View(user);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult Create(int page)
+        {
+            ViewData["Page"] = page;
+            return View();
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public IActionResult Create([Bind("Id,Email,Password,LastName,FirstName,Address")] User user, int page)
+        {
+            user.RoleId = 2;
+
+            ViewBag.Roles = new SelectList(unitOfWork.Roles.GetAll(), "Id", "Name");
+
+            if(unitOfWork.Users.GetAll().Any(x => x.Email == user.Email))
+            {
+                ModelState.AddModelError("", "Incorrect Email");
+                return View(user);
+            }
+
+            if (ModelState.IsValid)
+            {
+                unitOfWork.Users.Create(user);
+                unitOfWork.Save();
+
+                return RedirectToAction(nameof(Index));
+            }
             return View(user);
         }
 
