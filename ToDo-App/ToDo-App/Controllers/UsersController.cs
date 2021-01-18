@@ -53,6 +53,27 @@ namespace ToDo_App.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult Details(int? id, int page)
+        {
+            ViewData["Page"] = page;
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = unitOfWork.Users.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+
+
 
         private IEnumerable<User> GetSorted(IEnumerable<User> items, UsersSortState sortOrder)
         {
