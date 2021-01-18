@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,18 +80,15 @@ namespace ToDo_App.Controllers
         public IActionResult Create(int page)
         {
             ViewData["Page"] = page;
+            ViewBag.Roles = new SelectList(unitOfWork.Roles.GetAll(), "Id", "Name");
             return View();
         }
 
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Create([Bind("Id,Email,Password,LastName,FirstName,Address")] User user, int page)
+        public IActionResult Create([Bind("Id,Email,Password,LastName,FirstName,Address,RoleId")] User user, int page)
         {
-            user.RoleId = 2;
-
-            ViewBag.Roles = new SelectList(unitOfWork.Roles.GetAll(), "Id", "Name");
-
             if(unitOfWork.Users.GetAll().Any(x => x.Email == user.Email))
             {
                 ModelState.AddModelError("", "Incorrect Email");
@@ -109,6 +107,65 @@ namespace ToDo_App.Controllers
 
 
 
+        [Authorize(Roles = "admin, user")]
+        public IActionResult Edit(int? id, int page)
+        {
+            ViewData["Page"] = page;
+            ViewBag.Roles = new SelectList(unitOfWork.Roles.GetAll(), "Id", "Name");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = unitOfWork.Users.Get(id);
+            if (user == null || user.Id != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+                && !User.IsInRole("admin"))
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "admin, user")]
+        public IActionResult Edit(int id, [Bind("Id,Email,Password,LastName,FirstName,Address,RoleId")] User user)
+        {
+            if (id != user.Id || user.Id != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+                && !User.IsInRole("admin"))
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    unitOfWork.Users.Update(user);
+                    unitOfWork.Save();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(user);
+        }
+
+        private bool UserExists(int id)
+        {
+            return unitOfWork.Users.GetAll().Any();
+        }
 
         private IEnumerable<User> GetSorted(IEnumerable<User> items, UsersSortState sortOrder)
         {
