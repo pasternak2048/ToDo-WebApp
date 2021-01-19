@@ -20,12 +20,13 @@
     }
 </p>
 
-<form asp-action="Index" asp-route-filterOrder="@ToDoFilter.AllTasks">
+@{ToDoFilter newFilter = ViewBag.FilterStatus == ToDoFilter.AllTasks ? ToDoFilter.OnlyOpenTasks : ToDoFilter.AllTasks; }
+<form asp-action="Index" asp-route-filterOrder="@newFilter">
     <div class="form-actions no-color">
         <p>
             Find by name: <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
-            <input type="submit" value="Search" class="btn btn-outline-primary"/> |
-            <a asp-action="Index" class="btn btn-primary">Back to Full List</a>
+            <input type="submit" value="Search" class="btn btn-outline-primary" /> |
+            <a asp-action="Index" class="btn btn-outline-primary">Back to Full List</a>
         </p>
     </div>
 </form>
@@ -46,8 +47,8 @@
             </th>
             <th>
                 @{ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;}
-                <a asp-action="Index" 
-                   asp-route-sortOrder="@ViewBag.DeadlineSort" 
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewBag.DeadlineSort"
                    asp-route-filterOrder="@ViewBag.FilterStatus"
                    asp-route-page="@Model.PageViewModel.PageNumber">
                     Deadline
@@ -88,8 +89,8 @@
                        asp-route-sortOrder="@ViewBag.DeadlineSort" class="btn bg-transparent">@Html.DisplayFor(modelItem => item.IsCompleted)</a>
                 </td>
                 <td>
-                    <a asp-action="Edit" 
-                       asp-route-page="@Model.PageViewModel.PageNumber" 
+                    <a asp-action="Edit"
+                       asp-route-page="@Model.PageViewModel.PageNumber"
                        asp-route-id="@item.Id"
                        asp-route-filterOrder="@ViewBag.FilterStatus"
                        class="btn btn-outline-primary">Edit</a>
@@ -111,10 +112,11 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
-    
+
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-filterOrder="@ViewBag.FilterStatus"
+       asp-route-searchString="@ViewData["SearchFilter"]"
        class="btn btn-outline-dark">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Back
@@ -122,10 +124,11 @@
 }
 @if (Model.PageViewModel.HasNextPage)
 {
-    
+
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-filterOrder="@ViewBag.FilterStatus"
+       asp-route-searchString="@ViewData["SearchFilter"]"
        class="btn btn-outline-dark">
         Next
         <i class="glyphicon glyphicon-chevron-right"></i>
