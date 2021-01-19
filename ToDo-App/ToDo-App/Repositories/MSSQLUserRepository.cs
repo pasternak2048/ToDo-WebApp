@@ -19,13 +19,13 @@ namespace ToDo_App.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users.Include(x=>x.Role);
+            return _context.Users.AsNoTracking().Include(x=>x.Role);
         }
 
 
         public User Get(int? id)
         {
-            return _context.Users.Include(x => x.Role)
+            return _context.Users.AsNoTracking().Include(x => x.Role)
                 .FirstOrDefault(y => y.Id == id);
         }
 

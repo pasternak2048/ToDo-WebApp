@@ -24,7 +24,7 @@ namespace ToDo_App.Controllers
 
         public IActionResult Index()
         {
-            User currentUser = unitOfWork.Users.GetAll().Where(x => x.Email == this.User.Identity.Name).First();
+            User currentUser = unitOfWork.Users.GetAll().Where(x => x.Id.ToString() == this.User.Identity.Name).First();
             return View(currentUser);
         }
 
