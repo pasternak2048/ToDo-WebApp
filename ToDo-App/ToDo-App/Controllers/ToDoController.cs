@@ -35,8 +35,8 @@ namespace ToDo_App.Controllers
 
             if (currentUser.IsInRole("user"))
             {
-                var count = items.Where(i => i.User.Email == User.Identity.Name).Count();
-                items = items.Where(i => i.User.Email == User.Identity.Name)
+                var count = items.Where(i => i.User.Id.ToString() == User.Identity.Name).Count();
+                items = items.Where(i => i.User.Id.ToString() == User.Identity.Name)
                     .Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
 
                 items = GetSorted(items, sortOrder);
@@ -72,9 +72,10 @@ namespace ToDo_App.Controllers
         }
 
 
-        public IActionResult Details(int? id, int page)
+        public IActionResult Details(int? id, int page, ToDoFilter filterOrder)
         {
             ViewData["Page"] = page;
+            ViewData["FilterStatus"] = filterOrder;
             if (id == null)
             {
                 return NotFound();
@@ -82,7 +83,7 @@ namespace ToDo_App.Controllers
 
             var todo = unitOfWork.ToDos.Get(id);
 
-            if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (todo == null || todo.UserId.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -104,11 +105,11 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo, int page)
+        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
         {
             if (ModelState.IsValid)
             {
-                todo.UserId = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id;
+                todo.UserId = Convert.ToInt32(User.Identity.Name);
                 unitOfWork.ToDos.Create(todo);
                 unitOfWork.Save();
 
@@ -121,16 +122,18 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult Edit(int? id, int page)
+        public IActionResult Edit(int? id, int page, ToDoFilter filterOrder)
         {
             ViewData["Page"] = page;
+            ViewData["FilterStatus"] = filterOrder;
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var todo = unitOfWork.ToDos.Get(id);
-            if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (todo == null || todo.UserId.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -144,7 +147,7 @@ namespace ToDo_App.Controllers
         [Authorize(Roles = "admin, user")]
         public IActionResult Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
         {
-            if (id != todo.Id || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (id != todo.Id || todo.UserId.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -177,9 +180,10 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Delete(int? id, int page)
+        public async Task<IActionResult> Delete(int? id, int page, ToDoFilter filterOrder)
         {
             ViewData["Page"] = page;
+            ViewData["FilterStatus"] = filterOrder;
 
             if (id == null)
             {
@@ -187,7 +191,7 @@ namespace ToDo_App.Controllers
             }
 
             var todo = unitOfWork.ToDos.Get(id);
-            if (todo == null || todo.UserId != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (todo == null || todo.UserId.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -211,13 +215,14 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult MarkAsComplete(int? id, int page, ToDoSortState sortOrder)
+        public IActionResult MarkAsComplete(int? id, int page, ToDoSortState sortOrder, ToDoFilter filterOrder)
         {
             ToDo todo = unitOfWork.ToDos.Get(id);
 
             sortOrder = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
+            filterOrder =  filterOrder == ToDoFilter.OnlyOpenTasks ? ToDoFilter.OnlyOpenTasks : ToDoFilter.AllTasks;
 
-            if (ModelState.IsValid && (todo.UserId == unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (ModelState.IsValid && (todo.UserId.ToString() == User.Identity.Name
                 || User.IsInRole("admin")))
             {
                 try
@@ -239,7 +244,7 @@ namespace ToDo_App.Controllers
                 }
             }
 
-            return RedirectToAction("Index", new { page = page, sortOrder = sortOrder });
+            return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, filterOrder = filterOrder });
         }
         
 

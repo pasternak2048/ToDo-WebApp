@@ -106,7 +106,7 @@ namespace ToDo_App.Controllers
             // creating one claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name),
             };
             // creating ClaimsIdentity object

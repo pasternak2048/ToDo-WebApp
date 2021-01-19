@@ -45,3 +45,10 @@
         @Html.DisplayFor(model => model.Role.Name)
     </dd>
 </dl>
+
+<a asp-controller="Users"
+   asp-action="Edit"
+   asp-route-id="@Model.Id"
+   class="btn btn-outline-primary">
+    Edit
+</a>

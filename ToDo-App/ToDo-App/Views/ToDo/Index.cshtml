@@ -12,11 +12,11 @@
     <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">Create New</a>
     @if (ViewBag.FilterStatus != ToDoFilter.OnlyOpenTasks)
     {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">Show all</a>
     }
     else
     {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber">Show only opened</a>
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">Show only opened</a>
     }
 
 
@@ -34,7 +34,11 @@
                 Task Name
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DeadlineSort" asp-route-page="@Model.PageViewModel.PageNumber">
+                @{ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;}
+                <a asp-action="Index" 
+                   asp-route-sortOrder="@ViewBag.DeadlineSort" 
+                   asp-route-filterOrder="@ViewBag.FilterStatus"
+                   asp-route-page="@Model.PageViewModel.PageNumber">
                     Deadline
                 </a>
             </th>
@@ -54,7 +58,10 @@
                 @if (User.IsInRole("admin"))
                 {
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.Email)
+                        <a asp-controller="Users"
+                           asp-action="Details"
+                           asp-route-id="@item.User.Id"
+                           class="btn">@Html.DisplayFor(modelItem => item.User.Email)</a>
                     </td>
                 }
                 <td>
@@ -64,13 +71,27 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    <a asp-action="MarkAsComplete" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber"
+                    <a asp-action="MarkAsComplete" asp-route-id="@item.Id"
+                       asp-route-page="@Model.PageViewModel.PageNumber"
+                       asp-route-filterOrder="@ViewBag.FilterStatus"
                        asp-route-sortOrder="@ViewBag.DeadlineSort" class="btn bg-transparent">@Html.DisplayFor(modelItem => item.IsCompleted)</a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                    <a asp-action="Details" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
-                    <a asp-action="Delete" asp-route-page="@Model.PageViewModel.PageNumber" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                    <a asp-action="Edit" 
+                       asp-route-page="@Model.PageViewModel.PageNumber" 
+                       asp-route-id="@item.Id"
+                       asp-route-filterOrder="@ViewBag.FilterStatus"
+                       class="btn btn-outline-primary">Edit</a>
+
+                    <a asp-action="Details" asp-route-page="@Model.PageViewModel.PageNumber"
+                       asp-route-id="@item.Id"
+                       asp-route-filterOrder="@ViewBag.FilterStatus"
+                       class="btn btn-outline-primary">Details</a>
+
+                    <a asp-action="Delete" asp-route-page="@Model.PageViewModel.PageNumber"
+                       asp-route-id="@item.Id"
+                       asp-route-filterOrder="@ViewBag.FilterStatus"
+                       class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }
@@ -79,7 +100,7 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
-    ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
+    
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-filterOrder="@ViewBag.FilterStatus"
@@ -90,7 +111,7 @@
 }
 @if (Model.PageViewModel.HasNextPage)
 {
-    ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
+    
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-filterOrder="@ViewBag.FilterStatus"
@@ -99,3 +120,5 @@
         <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }
+
+<a class="btn btn-block">@Model.PageViewModel.PageNumber</a>

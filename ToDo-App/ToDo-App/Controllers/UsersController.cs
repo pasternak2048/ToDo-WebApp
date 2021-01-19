@@ -87,7 +87,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Create([Bind("Id,Email,Password,LastName,FirstName,Address,RoleId")] User user, int page)
+        public IActionResult Create([Bind("Id,Email,Password,LastName,FirstName,Address,DateOfRegistration,RoleId")] User user, int page)
         {
             if(unitOfWork.Users.GetAll().Any(x => x.Email == user.Email))
             {
@@ -119,7 +119,7 @@ namespace ToDo_App.Controllers
             }
 
             var user = unitOfWork.Users.Get(id);
-            if (user == null || user.Id != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (user == null || user.Id.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -131,9 +131,9 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Edit(int id, [Bind("Id,Email,Password,LastName,FirstName,Address,RoleId")] User user)
+        public IActionResult Edit(int id, [Bind("Id,Email,Password,LastName,FirstName,Address,DateOfRegistration,RoleId")] User user)
         {
-            if (id != user.Id || user.Id != unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
+            if (id != user.Id || user.Id.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))
             {
                 return NotFound();
@@ -157,7 +157,15 @@ namespace ToDo_App.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if(User.IsInRole("admin"))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                
             }
 
             return View(user);
