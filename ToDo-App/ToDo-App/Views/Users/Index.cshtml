@@ -14,7 +14,7 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData[""]" />
+            Find by name: <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
             <input type="submit" value="Search" class="btn btn-outline-primary" /> |
             <a asp-action="Index" class="btn btn-primary">Back to Full List</a>
         </p>

@@ -18,9 +18,20 @@
     {
         <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">Show only opened</a>
     }
-
-
 </p>
+
+<form asp-action="Index" asp-route-filterOrder="@ToDoFilter.AllTasks">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
+            <input type="submit" value="Search" class="btn btn-outline-primary"/> |
+            <a asp-action="Index" class="btn btn-primary">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+
+
 <table class="table">
     <thead>
         <tr>

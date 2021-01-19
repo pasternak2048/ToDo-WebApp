@@ -23,15 +23,23 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult Index(ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, ToDoFilter filterOrder = ToDoFilter.OnlyOpenTasks, int page = 1)
+        public IActionResult Index(string searchString, ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, ToDoFilter filterOrder = ToDoFilter.OnlyOpenTasks, int page = 1)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
             var items = unitOfWork.ToDos.GetAll();
 
             ViewData["DeadlineSort"] = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
             ViewData["FilterStatus"] = filterOrder == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
+            ViewData["SearchFilter"] = searchString;
 
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(s => s.TaskName.Contains(searchString)
+                                       || s.TaskDescription.Contains(searchString));
+            }
             items = GetFilteredByTaskStatus(items, filterOrder);
+
 
             if (currentUser.IsInRole("user"))
             {
