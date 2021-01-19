@@ -163,6 +163,41 @@ namespace ToDo_App.Controllers
             return View(user);
         }
 
+
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete(int? id, int page)
+        {
+            ViewData["Page"] = page;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = unitOfWork.Users.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "admin")]
+        public IActionResult DeleteConfirmed(int id, int page)
+        {
+            ViewData["Page"] = page;
+
+            unitOfWork.Users.Delete(id);
+            unitOfWork.Save();
+            return RedirectToAction("Index", page);
+        }
+
+
+
         private bool UserExists(int id)
         {
             return unitOfWork.Users.GetAll().Any();

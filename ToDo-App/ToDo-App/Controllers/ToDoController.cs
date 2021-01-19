@@ -16,7 +16,6 @@ namespace ToDo_App.Controllers
     {
         UnitOfWork unitOfWork;
         private const int _pageSize = 8;
-        private static string _taskStatus = "IsOpen";
         public ToDoController(ToDoContext context)
         {
             unitOfWork = new UnitOfWork(context);
@@ -24,15 +23,15 @@ namespace ToDo_App.Controllers
 
 
         [Authorize(Roles = "admin, user")]
-        public IActionResult Index(ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, int page = 1)
+        public IActionResult Index(ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, ToDoFilter filterOrder = ToDoFilter.OnlyOpenTasks, int page = 1)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
             var items = unitOfWork.ToDos.GetAll();
 
             ViewData["DeadlineSort"] = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
-            ViewData["FilterStatus"] = _taskStatus;
+            ViewData["FilterStatus"] = filterOrder == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
 
-            items = GetFilteredByTaskStatus(items, _taskStatus);
+            items = GetFilteredByTaskStatus(items, filterOrder);
 
             if (currentUser.IsInRole("user"))
             {
@@ -244,13 +243,6 @@ namespace ToDo_App.Controllers
         }
         
 
-        public IActionResult OnlyOpened()
-        {
-            _taskStatus = String.IsNullOrEmpty(_taskStatus) ? "IsOpen" : "";
-            return RedirectToAction(nameof(Index));
-        }
-
-
         private bool ToDoExists(int id)
         {
             return unitOfWork.ToDos.GetAll().Any();
@@ -268,16 +260,13 @@ namespace ToDo_App.Controllers
             return items;
         }
 
-        private IEnumerable<ToDo> GetFilteredByTaskStatus(IEnumerable<ToDo> items, string status)
+        private IEnumerable<ToDo> GetFilteredByTaskStatus(IEnumerable<ToDo> items, ToDoFilter status)
         {
-            switch (status)
+            items = status switch
             {
-                case "IsOpen":
-                    items = items.Where(i => i.IsCompleted == false);
-                    break;
-                default:
-                    break;
-            }
+                ToDoFilter.OnlyOpenTasks => items.Where(i => i.IsCompleted == false),
+                ToDoFilter.AllTasks => items
+            };
 
             return items;
         }

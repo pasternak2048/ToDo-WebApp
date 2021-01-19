@@ -1,4 +1,5 @@
 ﻿@using ToDo_App.Models.Abstractions
+@using ToDo_App.Enums;
 @model IndexViewModel<ToDo>
 
 @{
@@ -9,15 +10,15 @@
 
 <p>
     <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">Create New</a>
-    @if (ViewData["FilterStatus"] == "IsOpen")
+    @if (ViewBag.FilterStatus != ToDoFilter.OnlyOpenTasks)
     {
-        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber">Show all</a>
     }
     else
     {
-        <a asp-action="OnlyOpened" class="btn btn-primary" asp-route-page="@Model.PageViewModel.PageNumber">Show only opened</a>
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber">Show only opened</a>
     }
-    
+
 
 </p>
 <table class="table">
@@ -78,8 +79,10 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
+    ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-filterOrder="@ViewBag.FilterStatus"
        class="btn btn-outline-dark">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Back
@@ -87,8 +90,10 @@
 }
 @if (Model.PageViewModel.HasNextPage)
 {
+    ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-filterOrder="@ViewBag.FilterStatus"
        class="btn btn-outline-dark">
         Next
         <i class="glyphicon glyphicon-chevron-right"></i>
