@@ -50,6 +50,7 @@
                 <a asp-action="Index"
                    asp-route-sortOrder="@ViewBag.DeadlineSort"
                    asp-route-filterOrder="@ViewBag.FilterStatus"
+                   asp-route-searchString="@ViewData["SearchFilter"]"
                    asp-route-page="@Model.PageViewModel.PageNumber">
                     Deadline
                 </a>
