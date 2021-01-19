@@ -27,6 +27,7 @@ namespace ToDo_App.Models
             string adminFirstName = "Admin";
             string adminLastName = "One";
             string adminAddress = "Lviv";
+            DateTimeOffset adminDateOfRegistration = DateTimeOffset.Now;
 
 
             
@@ -40,7 +41,8 @@ namespace ToDo_App.Models
                 RoleId = adminRole.Id,
                 FirstName = adminFirstName,
                 LastName = adminLastName,
-                Address = adminAddress
+                Address = adminAddress,
+                DateOfRegistration = adminDateOfRegistration
             };
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });

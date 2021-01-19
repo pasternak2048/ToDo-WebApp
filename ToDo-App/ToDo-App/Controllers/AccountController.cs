@@ -49,7 +49,8 @@ namespace ToDo_App.Controllers
                         LastName = model.LastName,
                         FirstName = model.FirstName,
                         Address = model.Address,
-                        Password = model.Password
+                        Password = model.Password,
+                        DateOfRegistration = DateTimeOffset.Now
                     };
 
 

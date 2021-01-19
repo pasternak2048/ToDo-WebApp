@@ -97,6 +97,7 @@ namespace ToDo_App.Controllers
 
             if (ModelState.IsValid)
             {
+                user.DateOfRegistration = DateTimeOffset.Now;
                 unitOfWork.Users.Create(user);
                 unitOfWork.Save();
 

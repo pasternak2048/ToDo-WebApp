@@ -20,7 +20,7 @@ namespace ToDo_App.Models
         [StringLength(maximumLength: 50, ErrorMessage = "The 'First Name' field must not exceed 50 symbols")]
         public string FirstName { get; set; }
         public string Address { get; set; }
-
+        public DateTimeOffset DateOfRegistration { get; set; }
         public int? RoleId { get; set; }
         public Role Role { get; set; }
 
