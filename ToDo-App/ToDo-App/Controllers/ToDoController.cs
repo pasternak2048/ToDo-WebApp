@@ -216,6 +216,8 @@ namespace ToDo_App.Controllers
         {
             ToDo todo = unitOfWork.ToDos.Get(id);
 
+            sortOrder = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
+
             if (ModelState.IsValid && (todo.UserId == unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == User.Identity.Name).Id
                 || User.IsInRole("admin")))
             {
@@ -238,7 +240,7 @@ namespace ToDo_App.Controllers
                 }
             }
 
-            return RedirectToAction("Index", new { page = page });
+            return RedirectToAction("Index", new { page = page, sortOrder = sortOrder });
         }
         
 
