@@ -44,6 +44,8 @@ namespace ToDo_App.Controllers
 
         public IActionResult Privacy()
         {
+            ViewData["PrivacyTitle"] = _localizer["PrivacyTitle"];
+            ViewData["PrivacyDescription"] = _localizer["PrivacyDescription"];
             return View();
         }
 

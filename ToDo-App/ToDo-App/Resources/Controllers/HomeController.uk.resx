@@ -135,6 +135,12 @@
   <data name="LastName" xml:space="preserve">
     <value>Прізвище</value>
   </data>
+  <data name="PrivacyDescription" xml:space="preserve">
+    <value>Використовуйте цю сторінку, щоб детально описати політику конфіденційності вашого сайту.</value>
+  </data>
+  <data name="PrivacyTitle" xml:space="preserve">
+    <value>Політика конфіденційності</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Роль</value>
   </data>
