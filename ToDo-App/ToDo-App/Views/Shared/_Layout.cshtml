@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,17 +51,19 @@
                 </div>
             </div>
         </nav>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
+            @await Html.PartialAsync("_SelectLanguagePartial")
             &copy; 2021 - ToDo_App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+        
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -70,3 +71,11 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+
+@*<div class="container body-content">
+    <div>
+        @await Html.PartialAsync("_SelectLanguagePartial")
+    </div>
+    @RenderBody()
+</div>*@
