@@ -1,69 +1,82 @@
 ﻿@model ToDo_App.Models.ToDo
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>@Localizer["DeleteTitle"]</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@Localizer["DeleteConfirm"]</h3>
 <div>
-    <h4>To Do</h4>
+    <h4>@Localizer["ToDoTitle"]</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TaskName)
+            @Localizer["ToDoName"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TaskName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TaskDescription)
+            @Localizer["ToDoDescription"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TaskDescription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Deadline)
+            @Localizer["Deadline"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Deadline)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsCompleted)
+            @Localizer["Status"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsCompleted)
         </dd>
+    </dl>
+
+    <h4>@Localizer["UserTitle"]</h4>
+    <hr />
+    <dl class="row">
         @if (User.IsInRole("admin"))
         {
+        <dt class="col-sm-2">
+            @Localizer["UserId"]
+        </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.Id)
+            </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.LastName)
+                @Localizer["LastName"]
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.User.LastName)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.FirstName)
+                @Localizer["FirstName"]
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.User.FirstName)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.User.Email)
+                @Localizer["Email"]
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.User.Email)
             </dd>
         }
-
     </dl>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" asp-route-page="@ViewData["Page"]" value="Delete" class="btn btn-danger" />
-        <a asp-action="Index" 
+        <input type="submit" asp-route-page="@ViewData["Page"]" value="@Localizer["DeleteButton"]" class="btn btn-danger" />
+        <a asp-action="Index"
            asp-route-page="@ViewData["Page"]"
-           asp-route-filterOrder="@ViewData["FilterStatus"]" class="btn btn-primary">Back to List</a>
+           asp-route-filterOrder="@ViewData["FilterStatus"]" class="btn btn-primary">@Localizer["CancelButton"]</a>
     </form>
 
 </div>

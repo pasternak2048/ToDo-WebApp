@@ -1,6 +1,8 @@
 ﻿@model ToDo_App.Models.RegisterModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
-<h2>Registration</h2>
+<h2>@Localizer["RegistrationTitle"]</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -8,39 +10,44 @@
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div>
                 <div>
-                    <label asp-for="Email">Enter Email</label><br />
+                    <label asp-for="Email">@Localizer["Email"]</label><br />
                     <input type="text" asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger" />
                 </div>
                 <div>
-                    <label asp-for="FirstName">Enter first name</label><br />
+                    <label asp-for="FirstName">@Localizer["FirstName"]</label><br />
                     <input type="text" asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" />
+                    <span asp-validation-for="FirstName" class="text-danger" />
                 </div>
                 <div>
-                    <label asp-for="LastName">Enter last name</label><br />
+                    <label asp-for="LastName">@Localizer["LastName"]</label><br />
                     <input type="text" asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" />
+                    <span asp-validation-for="LastName" class="text-danger" />
                 </div>
                 <div>
-                    <label asp-for="Address">Enter address</label><br />
+                    <label asp-for="Address">@Localizer["Address"]</label><br />
                     <input type="text" asp-for="Address" class="form-control" />
-                    <span asp-validation-for="Address" />
+                    <span asp-validation-for="Address" class="text-danger" />
                 </div>
                 <div>
-                    <label asp-for="Password">Enter Password</label><br />
+                    <label asp-for="Password">@Localizer["Password"]</label><br />
                     <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger" />
                 </div>
                 <div>
-                    <label asp-for="PasswordConfirm">Confirm Password</label><br />
+                    <label asp-for="PasswordConfirm">@Localizer["ConfirmPassword"]</label><br />
                     <input asp-for="PasswordConfirm" class="form-control" />
-                    <span asp-validation-for="PasswordConfirm" />
+                    <span asp-validation-for="PasswordConfirm" class="text-danger" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Registration" class="btn btn-outline-primary" />
+                    <input type="submit" value="@Localizer["RegistrationButton"]" class="btn btn-outline-primary" />
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

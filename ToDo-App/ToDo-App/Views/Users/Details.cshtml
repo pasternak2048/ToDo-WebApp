@@ -1,54 +1,56 @@
 ﻿@model ToDo_App.Models.User
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Localizer["DetailsTitle"]</h1>
 
 <div>
-    <h4>User</h4>
+    <h4>@Localizer["UserTitle"]</h4>
     <hr />
     <dl class="row">
 
         <dt class="col-sm-2">
-            User ID
+            @Localizer["UserId"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class="col-sm-2">
-            Last Name
+            @Localizer["LastName"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt class="col-sm-2">
-            First Name
+            @Localizer["FirstName"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
         <dt class="col-sm-2">
-            Email
+            @Localizer["Email"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
-            Address
+            @Localizer["Address"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class="col-sm-2">
-            Date of Registration
+            @Localizer["DateOfRegistration"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateOfRegistration)
         </dd>
         <dt class="col-sm-2">
-            Role
+            @Localizer["Role"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Role.Name)
@@ -58,6 +60,6 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-route-page="@ViewData["Page"]" class="btn btn-primary">User List</a>
-    <a asp-controller="ToDo" asp-action="Index" class="btn btn-primary">ToDo List</a>
+    <a asp-action="Index" asp-route-page="@ViewData["Page"]" class="btn btn-primary">@Localizer["UserListButton"]</a>
+    <a asp-controller="ToDo" asp-action="Index" class="btn btn-primary">@Localizer["ToDoListButton"]</a>
 </div>

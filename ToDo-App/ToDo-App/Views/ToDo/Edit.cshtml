@@ -1,12 +1,14 @@
 ﻿@model ToDo_App.Models.ToDo
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>@Localizer["EditTitle"]</h1>
 
-<h4>To Do</h4>
+<h4>@Localizer["ToDoTitle"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,30 +17,30 @@
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="UserId" />
             <div class="form-group">
-                <label asp-for="TaskName" class="control-label"></label>
+                <label asp-for="TaskName" class="control-label">@Localizer["ToDoName"]</label>
                 <input asp-for="TaskName" class="form-control" />
                 <span asp-validation-for="TaskName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TaskDescription" class="control-label"></label>
+                <label asp-for="TaskDescription" class="control-label">@Localizer["ToDoDescription"]</label>
                 <input asp-for="TaskDescription" class="form-control" />
                 <span asp-validation-for="TaskDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Deadline" class="control-label"></label>
+                <label asp-for="Deadline" class="control-label">@Localizer["Deadline"]</label>
                 <input asp-for="Deadline" class="form-control" />
                 <span asp-validation-for="Deadline" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsCompleted" class="control-label"></label>
+                <label asp-for="IsCompleted" class="control-label">@Localizer["Status"]</label>
                 <input asp-for="IsCompleted" type="checkbox" />
                 <span asp-validation-for="IsCompleted" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />
-                <a asp-action="Index" 
-                   asp-route-page="@ViewData["Page"]" 
-                   asp-route-filterOrder="@ViewData["FilterStatus"]"class="btn btn-danger">Cancel</a>
+                <input type="submit" value="@Localizer["SaveButton"]" class="btn btn-success" />
+                <a asp-action="Index"
+                   asp-route-page="@ViewData["Page"]"
+                   asp-route-filterOrder="@ViewData["FilterStatus"]" class="btn btn-danger">@Localizer["CancelButton"]</a>
             </div>
         </form>
     </div>

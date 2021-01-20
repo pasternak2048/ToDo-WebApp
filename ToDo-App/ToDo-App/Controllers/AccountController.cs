@@ -68,7 +68,10 @@ namespace ToDo_App.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 else
+                {
                     ModelState.AddModelError("", "Incorrect login or password");
+                }
+
             }
             return View(model);
         }
@@ -95,7 +98,7 @@ namespace ToDo_App.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Incorrect login or password");
+                //ModelState.AddModelError("", "Incorrect login or password");
             }
             return View(model);
         }
