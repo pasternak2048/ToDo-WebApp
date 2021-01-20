@@ -39,14 +39,15 @@
         </dd>
     </dl>
 
-    <h4>@Localizer["UserTitle"]</h4>
-    <hr />
-    <dl class="row">
-        @if (User.IsInRole("admin"))
-        {
-        <dt class="col-sm-2">
-            @Localizer["UserId"]
-        </dt>
+    @if (User.IsInRole("admin"))
+    {
+        <h4>@Localizer["UserTitle"]</h4>
+        <hr />
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Localizer["UserId"]
+            </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.User.Id)
             </dd>
@@ -68,9 +69,10 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.User.Email)
             </dd>
-        }
-    </dl>
 
+        </dl>
+        
+    }
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" asp-route-page="@ViewData["Page"]" value="@Localizer["DeleteButton"]" class="btn btn-danger" />
@@ -78,5 +80,4 @@
            asp-route-page="@ViewData["Page"]"
            asp-route-filterOrder="@ViewData["FilterStatus"]" class="btn btn-primary">@Localizer["CancelButton"]</a>
     </form>
-
 </div>
