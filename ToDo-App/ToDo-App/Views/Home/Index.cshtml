@@ -4,42 +4,42 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome, @Model.FirstName  @Model.LastName !</h1>
+    <h1 class="display-4">@ViewBag.WelcomeMessage, @Model.FirstName  @Model.LastName !</h1>
 </div>
 
 <dl class="row">
     <dt class="col-sm-2">
-        Last Name
+        @ViewData["LastName"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.LastName)
     </dd>
     <dt class="col-sm-2">
-        First Name
+        @ViewData["FirstName"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.FirstName)
     </dd>
     <dt class="col-sm-2">
-        Email
+        @ViewData["Email"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.Email)
     </dd>
     <dt class="col-sm-2">
-        Address
+        @ViewData["Address"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.Address)
     </dd>
     <dt class="col-sm-2">
-        Date of Registration
+        @ViewData["DateOfRegistration"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.DateOfRegistration)
     </dd>
     <dt class="col-sm-2">
-        Role
+        @ViewData["Role"]
     </dt>
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.Role.Name)
@@ -50,5 +50,5 @@
    asp-action="Edit"
    asp-route-id="@Model.Id"
    class="btn btn-outline-primary">
-    Edit
+    @ViewData["EditButton"]
 </a>
