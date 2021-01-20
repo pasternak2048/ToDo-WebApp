@@ -26,7 +26,7 @@ namespace ToDo_App.Controllers
         public IActionResult Index(string searchString, ToDoSortState sortOrder = ToDoSortState.DeadlineAsc, ToDoFilter filterOrder = ToDoFilter.OnlyOpenTasks, int page = 1)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-            var items = unitOfWork.ToDos.GetAll();
+            IEnumerable<ToDo> items = unitOfWork.ToDos.GetAll().OrderBy(x => x.Deadline);
 
             ViewData["DeadlineSort"] = sortOrder == ToDoSortState.DeadlineAsc ? ToDoSortState.DeadlineDesc : ToDoSortState.DeadlineAsc;
             ViewData["FilterStatus"] = filterOrder == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
