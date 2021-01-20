@@ -133,13 +133,19 @@
     <value>Деталі</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Змінити</value>
+    <value>Редагувати</value>
   </data>
   <data name="FindName" xml:space="preserve">
     <value>Пошук по імені</value>
   </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Вперед</value>
+  </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Користувачі</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Назад</value>
   </data>
   <data name="SearchButton" xml:space="preserve">
     <value>Знайти</value>

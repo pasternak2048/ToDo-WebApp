@@ -9,16 +9,20 @@
 
 <h1>@Localizer["PageTitle"]</h1>
 
-<p>
-    <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">@Localizer["CreateUserButton"]</a>
-
-</p>
 <form asp-action="Index" method="get">
+
     <div class="form-actions no-color">
         <p>
-            @Localizer["FindName"] <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
-            <input type="submit" value="@Localizer["SearchButton"]" class="btn btn-outline-primary" /> |
-            <a asp-action="Index" class="btn btn-outline-primary">@Localizer["BackToFullListButton"]</a>
+            <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">@Localizer["CreateUserButton"]</a>
+            <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
+            <input type="submit" value="@Localizer["SearchButton"]" class="btn btn-outline-primary" />
+
+            @{if (!String.IsNullOrEmpty(@ViewBag.SearchFilter))
+                {
+                    <a asp-action="Index" class="btn btn-outline-primary">@Localizer["BackToFullListButton"]</a>
+                }
+            }
+
         </p>
     </div>
 </form>
@@ -51,7 +55,7 @@
             <th>
                 @Localizer["Actions"]
             </th>
-            
+
         </tr>
     </thead>
     <tbody>
@@ -93,7 +97,7 @@
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        class="btn btn-outline-dark">
         <i class="glyphicon glyphicon-chevron-left"></i>
-        Back
+        @Localizer["PreviousPage"]
     </a>
 }
 @if (Model.PageViewModel.HasNextPage)
@@ -101,7 +105,7 @@
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        class="btn btn-outline-dark">
-        Next
+        @Localizer["NextPage"]
         <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }

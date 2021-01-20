@@ -123,8 +123,11 @@
   <data name="BackToFullListButton" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="CreateUserButton" xml:space="preserve">
-    <value>Create</value>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
@@ -135,14 +138,17 @@
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="FindName" xml:space="preserve">
-    <value>Find by name:</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FindByNameLabel" xml:space="preserve">
+    <value>Find by Name and Description</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NextPage" xml:space="preserve">
     <value>Next</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Users</value>
   </data>
   <data name="PreviousPage" xml:space="preserve">
     <value>Back</value>
@@ -150,22 +156,16 @@
   <data name="SearchButton" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="UserAddress" xml:space="preserve">
-    <value>Address</value>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Show all</value>
   </data>
-  <data name="UserEmail" xml:space="preserve">
-    <value>EMAIL</value>
+  <data name="ShowNotCompleted" xml:space="preserve">
+    <value>Show not completed</value>
   </data>
-  <data name="UserFirstName" xml:space="preserve">
-    <value>First Name</value>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
-  <data name="UserID" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="UserLastName" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="UserRole" xml:space="preserve">
-    <value>Role</value>
+  <data name="ToDosTitle" xml:space="preserve">
+    <value>To Do List</value>
   </data>
 </root>

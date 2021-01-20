@@ -1,32 +1,40 @@
 ﻿@using ToDo_App.Models.Abstractions
 @using ToDo_App.Enums;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model IndexViewModel<ToDo>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>ToDos</h1>
+<h1>@Localizer["ToDosTitle"]</h1>
 
 <p>
-    <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">Create New</a>
-    @if (ViewBag.FilterStatus != ToDoFilter.OnlyOpenTasks)
-    {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">Show all</a>
-    }
-    else
-    {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">Show only opened</a>
-    }
+
 </p>
 
 @{ToDoFilter newFilter = ViewBag.FilterStatus == ToDoFilter.AllTasks ? ToDoFilter.OnlyOpenTasks : ToDoFilter.AllTasks; }
 <form asp-action="Index" asp-route-filterOrder="@newFilter">
     <div class="form-actions no-color">
         <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
-            <input type="submit" value="Search" class="btn btn-outline-primary" /> |
-            <a asp-action="Index" class="btn btn-outline-primary">Back to Full List</a>
+            <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">@Localizer["CreateButton"]</a>
+            @if (ViewBag.FilterStatus != ToDoFilter.OnlyOpenTasks)
+            {
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowAllButton"]</a>
+            }
+            else
+            {
+        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowNotCompleted"]</a>
+            }
+            <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
+            <input type="submit" value="@Localizer["SearchButton"]" class="btn btn-outline-primary" />
+            @{if (!String.IsNullOrEmpty(@ViewBag.SearchFilter))
+                {
+                    <a asp-action="Index" class="btn btn-outline-primary">@Localizer["BackToFullListButton"]</a>
+                }
+            }
+
         </p>
     </div>
 </form>
@@ -38,13 +46,13 @@
         <tr>
             @if (User.IsInRole("admin"))
             {
-                <th>
-                    User Email
-                </th>
-            }
             <th>
-                Task Name
+                @Localizer["Email"]
             </th>
+            }
+        <th>
+            @Localizer["Name"]
+        </th>
             <th>
                 @{ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;}
                 <a asp-action="Index"
@@ -52,14 +60,14 @@
                    asp-route-filterOrder="@ViewBag.FilterStatus"
                    asp-route-searchString="@ViewData["SearchFilter"]"
                    asp-route-page="@Model.PageViewModel.PageNumber">
-                    Deadline
+                    @Localizer["Deadline"]
                 </a>
             </th>
             <th>
-                Is completed
+                @Localizer["Status"]
             </th>
             <th>
-                Actions
+                @Localizer["Actions"]
             </th>
             <th></th>
         </tr>
@@ -94,17 +102,17 @@
                        asp-route-page="@Model.PageViewModel.PageNumber"
                        asp-route-id="@item.Id"
                        asp-route-filterOrder="@ViewBag.FilterStatus"
-                       class="btn btn-outline-primary">Edit</a>
+                       class="btn btn-outline-primary">@Localizer["EditButton"]</a>
 
                     <a asp-action="Details" asp-route-page="@Model.PageViewModel.PageNumber"
                        asp-route-id="@item.Id"
                        asp-route-filterOrder="@ViewBag.FilterStatus"
-                       class="btn btn-outline-primary">Details</a>
+                       class="btn btn-outline-primary">@Localizer["DetailsButton"]</a>
 
                     <a asp-action="Delete" asp-route-page="@Model.PageViewModel.PageNumber"
                        asp-route-id="@item.Id"
                        asp-route-filterOrder="@ViewBag.FilterStatus"
-                       class="btn btn-outline-danger">Delete</a>
+                       class="btn btn-outline-danger">@Localizer["DeleteButton"]</a>
                 </td>
             </tr>
         }
@@ -114,26 +122,26 @@
 @if (Model.PageViewModel.HasPreviousPage)
 {
 
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       asp-route-filterOrder="@ViewBag.FilterStatus"
-       asp-route-searchString="@ViewData["SearchFilter"]"
-       class="btn btn-outline-dark">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Back
-    </a>
+<a asp-action="Index"
+   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+   asp-route-filterOrder="@ViewBag.FilterStatus"
+   asp-route-searchString="@ViewData["SearchFilter"]"
+   class="btn btn-outline-dark">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+    @Localizer["PreviousPage"]
+</a>
 }
 @if (Model.PageViewModel.HasNextPage)
 {
 
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-filterOrder="@ViewBag.FilterStatus"
-       asp-route-searchString="@ViewData["SearchFilter"]"
-       class="btn btn-outline-dark">
-        Next
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
+<a asp-action="Index"
+   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+   asp-route-filterOrder="@ViewBag.FilterStatus"
+   asp-route-searchString="@ViewData["SearchFilter"]"
+   class="btn btn-outline-dark">
+    @Localizer["NextPage"]
+    <i class="glyphicon glyphicon-chevron-right"></i>
+</a>
 }
 
 <a class="btn btn-block">@Model.PageViewModel.PageNumber</a>
