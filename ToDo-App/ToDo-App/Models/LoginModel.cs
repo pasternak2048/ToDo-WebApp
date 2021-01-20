@@ -8,10 +8,10 @@ namespace ToDo_App.Models
 {
     public class LoginModel
     {
-        [Required(ErrorMessage = "Email not specified")]
+        [Required(ErrorMessage = "PropertyEmailRequiredError")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password not specified")]
+        [Required(ErrorMessage = "PropertyPasswordRequiredError")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

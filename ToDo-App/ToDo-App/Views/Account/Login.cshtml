@@ -1,6 +1,8 @@
 ﻿@model ToDo_App.Models.LoginModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
-<h2>Log in</h2>
+<h2>@Localizer["LoginTitle"]</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -8,20 +10,26 @@
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div>
                 <div class="form-group">
-                    <label asp-for="Email">Enter Email</label>
+                    <label asp-for="Email">@Localizer["Email"]</label>
                     <input type="text" asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"/>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password">Enter Password</label>
+                    <label asp-for="Password">@Localizer["Password"]</label>
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Log in" class="btn btn-outline-primary" />
-                    <a asp-action="Register" asp-controller="Account" class="btn btn-outline-primary">Registration</a>
+                    <input type="submit" value="@Localizer["LoginButton"]" class="btn btn-outline-primary" />
+                    <a asp-action="Register" asp-controller="Account" class="btn btn-outline-primary">@Localizer["RegistrationButton"]</a>
                 </div>
             </div>
         </form>
-        </div>
+    </div>
 </div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

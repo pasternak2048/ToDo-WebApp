@@ -33,7 +33,7 @@ namespace ToDo_App
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connection));
-            services.AddControllersWithViews().AddViewLocalization();
+            services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
