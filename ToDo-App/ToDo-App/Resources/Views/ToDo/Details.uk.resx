@@ -127,7 +127,7 @@
     <value>Дедлайн</value>
   </data>
   <data name="DetailsTitle" xml:space="preserve">
-    <value>Деталі</value>
+    <value>ДЕТАЛІ</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Ел. пошта</value>
@@ -142,7 +142,7 @@
     <value>Назва</value>
   </data>
   <data name="ToDoTitle" xml:space="preserve">
-    <value>Справа</value>
+    <value>Завдання</value>
   </data>
   <data name="UserFirstName" xml:space="preserve">
     <value>Ім'я</value>

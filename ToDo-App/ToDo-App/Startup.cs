@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDo_App.Models;
+using ToDo_App.Services;
 
 namespace ToDo_App
 {
@@ -34,6 +35,19 @@ namespace ToDo_App
 
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
+            services.AddSingleton<ErrorMessageTranslationService>();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("uk")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("uk");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
@@ -55,18 +69,7 @@ namespace ToDo_App
                 app.UseHsts();
             }
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("en"),
-                new CultureInfo("uk")
-            };
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("uk"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            app.UseRequestLocalization();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

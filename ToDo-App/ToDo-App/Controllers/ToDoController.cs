@@ -15,7 +15,7 @@ namespace ToDo_App.Controllers
     public class ToDoController : Controller
     {
         UnitOfWork unitOfWork;
-        private const int _pageSize = 8;
+        private const int _pageSize = 7;
         public ToDoController(ToDoContext context)
         {
             unitOfWork = new UnitOfWork(context);
@@ -35,8 +35,8 @@ namespace ToDo_App.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                items = items.Where(s => s.TaskName.Contains(searchString)
-                                       || s.TaskDescription.Contains(searchString));
+                items = items.Where(s => s.Name.Contains(searchString)
+                                       || s.Description.Contains(searchString));
             }
             items = GetFilteredByTaskStatus(items, filterOrder);
 
@@ -113,7 +113,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Create([Bind("Id,TaskName,TaskDescription,Deadline,UserId")] ToDo todo)
+        public IActionResult Create([Bind("Id,Name,Description,Deadline,UserId")] ToDo todo)
         {
             if (ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace ToDo_App.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Edit(int id, [Bind("Id,TaskName,TaskDescription,Deadline,IsCompleted,UserId")] ToDo todo)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,Deadline,IsCompleted,UserId")] ToDo todo)
         {
             if (id != todo.Id || todo.UserId.ToString() != User.Identity.Name
                 && !User.IsInRole("admin"))

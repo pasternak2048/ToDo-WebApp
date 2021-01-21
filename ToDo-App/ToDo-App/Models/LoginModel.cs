@@ -9,6 +9,7 @@ namespace ToDo_App.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "PropertyEmailRequiredError")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "IncorrectEmailError")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "PropertyPasswordRequiredError")]

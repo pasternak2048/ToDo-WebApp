@@ -118,36 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="IncorrectEmailError" xml:space="preserve">
-    <value>Incorrect email</value>
+    <value>Неправильна ел. адреса</value>
   </data>
   <data name="IncorrectFirstNameError" xml:space="preserve">
-    <value>Incorrect First Name</value>
+    <value>Неправильне ім'я</value>
   </data>
   <data name="IncorrectLastNameError" xml:space="preserve">
-    <value>Incorrect Last Name</value>
+    <value>Неправильне прізвище</value>
   </data>
   <data name="IncorrectPasswordError" xml:space="preserve">
-    <value>Password must contain minimum eight characters, at least one letter and one number</value>
+    <value>Пароль повинен містити мінімум вісім символів, принаймні одну букву та одну цифру</value>
   </data>
-  <data name="PropertyAddressNameRequiredError" xml:space="preserve">
-    <value>Address not specified</value>
+  <data name="PropertyAddressLengthError" xml:space="preserve">
+    <value>Поле "Адреса" не повинне перевищувати 50 символів</value>
+  </data>
+  <data name="PropertyAddressRequiredError" xml:space="preserve">
+    <value>Адреса не вказана</value>
   </data>
   <data name="PropertyEmailRequiredError" xml:space="preserve">
-    <value>Email is required</value>
+    <value>Ел. адресу не вказано</value>
+  </data>
+  <data name="PropertyFirstNameLengthError" xml:space="preserve">
+    <value>Поле "Ім'я" не повинне перевищувати 50 символів</value>
   </data>
   <data name="PropertyFirstNameRequiredError" xml:space="preserve">
-    <value>First Name not specified</value>
+    <value>Ім'я не вказано</value>
+  </data>
+  <data name="PropertyLastNameLengthError" xml:space="preserve">
+    <value>Поле "Прізвище" не повинне перевищувати 50 символів</value>
   </data>
   <data name="PropertyLastNameRequiredError" xml:space="preserve">
-    <value>Last Name not specified</value>
+    <value>Прізвище не вказано</value>
   </data>
-  <data name="PropertyPasswordComparedError" xml:space="preserve">
-    <value>Passwords don't match</value>
-  </data>
-  <data name="PropertyPasswordComparedRequiredError" xml:space="preserve">
-    <value>Password comfirm is required</value>
+  <data name="PropertyPasswordLengthError" xml:space="preserve">
+    <value>Поле "Пароль" не повинне перевищувати 50 символів</value>
   </data>
   <data name="PropertyPasswordRequiredError" xml:space="preserve">
-    <value>Password is required</value>
+    <value>Пароль не вказаний</value>
   </data>
 </root>

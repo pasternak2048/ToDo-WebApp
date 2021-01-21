@@ -130,7 +130,7 @@
     <value>Ви впевнені, що хочете видалити це?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Видалити</value>
+    <value>ВИДАЛИТИ</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Ел. пошта</value>

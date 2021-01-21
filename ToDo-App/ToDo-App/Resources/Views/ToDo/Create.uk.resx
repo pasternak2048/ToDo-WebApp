@@ -124,7 +124,7 @@
     <value>Створити</value>
   </data>
   <data name="CreateTitle" xml:space="preserve">
-    <value>Створити</value>
+    <value>СТВОРИТИ</value>
   </data>
   <data name="Deadline" xml:space="preserve">
     <value>Дедлайн</value>
@@ -136,6 +136,6 @@
     <value>Назва</value>
   </data>
   <data name="ToDoTitle" xml:space="preserve">
-    <value>Справа</value>
+    <value>Завдання</value>
   </data>
 </root>

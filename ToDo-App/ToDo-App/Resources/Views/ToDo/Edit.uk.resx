@@ -124,7 +124,7 @@
     <value>Дедлайн</value>
   </data>
   <data name="EditTitle" xml:space="preserve">
-    <value>Редагувати</value>
+    <value>РЕДАГУВАТИ</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Зберегти</value>
@@ -139,6 +139,6 @@
     <value>Назва</value>
   </data>
   <data name="ToDoTitle" xml:space="preserve">
-    <value>Справа</value>
+    <value>Завдання</value>
   </data>
 </root>

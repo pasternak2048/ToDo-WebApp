@@ -124,7 +124,7 @@
     <value>Увійти</value>
   </data>
   <data name="LoginTitle" xml:space="preserve">
-    <value>Вхід</value>
+    <value>ВХІД</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Введіть пароль</value>

@@ -45,7 +45,11 @@ namespace ToDo_App.Repositories
         {
             User user = _context.Users.Find(id);
             if (user != null)
+            {
+                List<ToDo> toDoList = _context.ToDos.Where(x => x.UserId == id).ToList();
+                _context.ToDos.RemoveRange(toDoList);
                 _context.Users.Remove(user);
+            }
         }
     }
 }
