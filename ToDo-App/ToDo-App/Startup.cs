@@ -31,7 +31,7 @@ namespace ToDo_App
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            string connection = Configuration.GetConnectionString("RemoteMsSqlServerConnection");
 
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
