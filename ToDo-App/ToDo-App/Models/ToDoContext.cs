@@ -23,7 +23,7 @@ namespace ToDo_App.Models
             string userRoleName = "user";
 
             string adminEmail = "admin@gmail.com";
-            string adminPassword = "123456";
+            string adminPassword = "12345678a";
             string adminFirstName = "Admin";
             string adminLastName = "One";
             string adminAddress = "Lviv";
