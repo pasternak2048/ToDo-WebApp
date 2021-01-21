@@ -15,17 +15,20 @@ namespace ToDo_App.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "PropertyPasswordRequiredError")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", ErrorMessage = "IncorrectPasswordError")]
         [StringLength(maximumLength: 16, ErrorMessage = "PropertyPasswordLengthError")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "PropertyLastNameRequiredError")]
+        [RegularExpression(@"[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~< >;:[\]]{2,}", ErrorMessage = "IncorrectLastNameError")]
         [StringLength(maximumLength: 50, ErrorMessage = "PropertyLastNameLengthError")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "PropertyFirstNameRequiredError")]
+        [RegularExpression(@"[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~< >;:[\]]{2,}", ErrorMessage = "IncorrectFirstNameError")]
         [StringLength(maximumLength: 50, ErrorMessage = "PropertyFirstNameLengthError")]
         public string FirstName { get; set; }
-
+        
         [Required(ErrorMessage = "PropertyAddressRequiredError")]
         [StringLength(maximumLength: 50, ErrorMessage = "PropertyAddressLengthError")]
         public string Address { get; set; }

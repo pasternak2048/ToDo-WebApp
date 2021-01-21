@@ -120,6 +120,15 @@
   <data name="IncorrectEmailError" xml:space="preserve">
     <value>Incorrect Email</value>
   </data>
+  <data name="IncorrectFirstNameError" xml:space="preserve">
+    <value>Incorrect First Name</value>
+  </data>
+  <data name="IncorrectLastNameError" xml:space="preserve">
+    <value>Incorrect Last Name</value>
+  </data>
+  <data name="IncorrectPasswordError" xml:space="preserve">
+    <value>Password must contain minimum eight characters, at least one letter and one number</value>
+  </data>
   <data name="PropertyAddressLengthError" xml:space="preserve">
     <value>The 'Address' field must not exceed 50 symbols</value>
   </data>

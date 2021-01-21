@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IncorrectEmailError" xml:space="preserve">
+    <value>Неправильна ел. адреса</value>
+  </data>
+  <data name="IncorrectFirstNameError" xml:space="preserve">
+    <value>Неправильне ім'я</value>
+  </data>
+  <data name="IncorrectLastNameError" xml:space="preserve">
+    <value>Неправильне прізвище</value>
+  </data>
+  <data name="IncorrectPasswordError" xml:space="preserve">
+    <value>Пароль повинен містити мінімум вісім символів, принаймні одну букву та одну цифру</value>
+  </data>
   <data name="PropertyAddressNameRequiredError" xml:space="preserve">
     <value>Адреса обов'язкова</value>
   </data>

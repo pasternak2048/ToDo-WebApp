@@ -124,7 +124,7 @@
     <value>Дата реєстрації</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Змінити</value>
+    <value>Редагувати</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Електронна пошта</value>

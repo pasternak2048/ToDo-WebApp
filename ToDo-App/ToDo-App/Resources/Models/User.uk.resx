@@ -120,6 +120,15 @@
   <data name="IncorrectEmailError" xml:space="preserve">
     <value>Неправильна ел. адреса</value>
   </data>
+  <data name="IncorrectFirstNameError" xml:space="preserve">
+    <value>Неправильне ім'я</value>
+  </data>
+  <data name="IncorrectLastNameError" xml:space="preserve">
+    <value>Неправильне прізвище</value>
+  </data>
+  <data name="IncorrectPasswordError" xml:space="preserve">
+    <value>Пароль повинен містити мінімум вісім символів, принаймні одну букву та одну цифру</value>
+  </data>
   <data name="PropertyAddressLengthError" xml:space="preserve">
     <value>Поле "Адреса" не повинне перевищувати 50 символів</value>
   </data>
