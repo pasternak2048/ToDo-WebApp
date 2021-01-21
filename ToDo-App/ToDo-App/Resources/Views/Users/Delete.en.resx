@@ -130,7 +130,7 @@
     <value>Are you sure you want to delete this?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete</value>
+    <value>DELETE</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>

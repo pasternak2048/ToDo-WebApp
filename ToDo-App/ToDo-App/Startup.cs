@@ -67,8 +67,6 @@ namespace ToDo_App
                 app.UseHsts();
             }
 
-            
-
             app.UseRequestLocalization();
 
             app.UseHttpsRedirection();
