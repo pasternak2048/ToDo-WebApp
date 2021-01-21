@@ -126,4 +126,7 @@
   <data name="PropertyNameRequiredError" xml:space="preserve">
     <value>Назва не вказана</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>Дедлайн повинен бути пізніше, ніж зараз</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo_App.ValidationAttributes;
 
 namespace ToDo_App.Models
 {
@@ -17,6 +18,7 @@ namespace ToDo_App.Models
 
         [Required(ErrorMessage = "PropertyDeadlineError")]
         [DataType(DataType.DateTime)]
+        [DateTimeOffsetValidation(ErrorMessage = "Result")]
         public DateTimeOffset Deadline { get; set; }
         public bool IsCompleted { get; set; }
         public int? UserId { get; set; }

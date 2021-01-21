@@ -126,4 +126,7 @@
   <data name="PropertyNameRequiredError" xml:space="preserve">
     <value>Name not specified</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>Deadline must be later than now</value>
+  </data>
 </root>
