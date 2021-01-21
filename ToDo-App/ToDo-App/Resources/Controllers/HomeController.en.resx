@@ -121,7 +121,7 @@
     <value>Address</value>
   </data>
   <data name="DateOfRegistration" xml:space="preserve">
-    <value>Date of Registration</value>
+    <value>Registration Date</value>
   </data>
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
