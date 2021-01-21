@@ -52,6 +52,18 @@ namespace ToDo_App.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            ViewData["ProgramName"] = _localizer["ProgramName"];
+            @ViewData["ProgramDescription"] = _localizer["ProgramDescription"];
+            ViewData["DeveloperTitle"] = _localizer["DeveloperTitle"];
+            ViewData["DeveloperName"] = _localizer["DeveloperName"];
+            ViewData["DeveloperSurname"] = _localizer["DeveloperSurname"];
+            ViewData["DeveloperEmail"] = _localizer["DeveloperEmail"];
+            ViewData["DeveloperAddress"] = _localizer["DeveloperAddress"];
+            ViewData["DeveloperGitHubLink"] = _localizer["DeveloperGitHubLink"];
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

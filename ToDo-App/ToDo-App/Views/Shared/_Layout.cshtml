@@ -35,6 +35,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">@Localizer["AboutProgram"]</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -61,7 +64,9 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
+            <a href="https://github.com/pasternak2048/ToDo-WebApp">Project on GitHub </a>&nbsp;&nbsp;
             &copy; 2021 - ToDo_App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
         </div>
         
     </footer>

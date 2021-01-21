@@ -123,6 +123,24 @@
   <data name="DateOfRegistration" xml:space="preserve">
     <value>Дата реєстрації</value>
   </data>
+  <data name="DeveloperAddress" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="DeveloperEmail" xml:space="preserve">
+    <value>Ел. пошта</value>
+  </data>
+  <data name="DeveloperGitHubLink" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="DeveloperName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="DeveloperSurname" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="DeveloperTitle" xml:space="preserve">
+    <value>Розробник</value>
+  </data>
   <data name="EditButton" xml:space="preserve">
     <value>Редагувати</value>
   </data>
@@ -140,6 +158,12 @@
   </data>
   <data name="PrivacyTitle" xml:space="preserve">
     <value>Політика конфіденційності</value>
+  </data>
+  <data name="ProgramDescription" xml:space="preserve">
+    <value>Це "To Do WebApp"  для організації ваших завдань.</value>
+  </data>
+  <data name="ProgramName" xml:space="preserve">
+    <value>TO DO APP</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Роль</value>
