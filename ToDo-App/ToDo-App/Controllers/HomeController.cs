@@ -14,7 +14,7 @@ using ToDo_App.Repositories;
 
 namespace ToDo_App.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -28,6 +28,7 @@ namespace ToDo_App.Controllers
             unitOfWork = new UnitOfWork(context);
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             ViewData["WelcomeMessage"] = _localizer["WelcomeMessage"];
@@ -56,7 +57,7 @@ namespace ToDo_App.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
