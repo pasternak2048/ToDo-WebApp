@@ -15,7 +15,7 @@ namespace ToDo_App.Controllers
     public class ToDoController : Controller
     {
         UnitOfWork unitOfWork;
-        private const int _pageSize = 8;
+        private const int _pageSize = 7;
         public ToDoController(ToDoContext context)
         {
             unitOfWork = new UnitOfWork(context);
