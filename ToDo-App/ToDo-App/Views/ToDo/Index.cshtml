@@ -10,7 +10,7 @@
 
 <h1>@Localizer["ToDosTitle"]</h1>
 
-<
+
 @{ToDoFilter newFilter = ViewBag.FilterStatus == ToDoFilter.AllTasks ? ToDoFilter.OnlyOpenTasks : ToDoFilter.AllTasks; }
 <form asp-action="Index" asp-route-filterOrder="@newFilter">
     <div class="form-actions no-color">
