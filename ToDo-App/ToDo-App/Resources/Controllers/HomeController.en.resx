@@ -123,6 +123,24 @@
   <data name="DateOfRegistration" xml:space="preserve">
     <value>Registration Date</value>
   </data>
+  <data name="DeveloperAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="DeveloperEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="DeveloperGitHubLink" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="DeveloperName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="DeveloperSurname" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="DeveloperTitle" xml:space="preserve">
+    <value>Developer</value>
+  </data>
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -140,6 +158,12 @@
   </data>
   <data name="PrivacyTitle" xml:space="preserve">
     <value>Privacy Policy</value>
+  </data>
+  <data name="ProgramDescription" xml:space="preserve">
+    <value>This is "To Do WebApp" for organizing your tasks.</value>
+  </data>
+  <data name="ProgramName" xml:space="preserve">
+    <value>TO DO APP</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
