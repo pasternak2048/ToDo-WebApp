@@ -10,10 +10,12 @@ namespace ToDo_App.Models
     {
         public int Id { get; set; }
 
-        [StringLength(maximumLength: 256, ErrorMessage = "The 'Task Name' field must not exceed 256 symbols")]
-        public string TaskName { get; set; }
-        public string TaskDescription { get; set; }
+        [Required(ErrorMessage = "PropertyNameRequiredError")]
+        [StringLength(maximumLength: 256, ErrorMessage = "PropertyNameLengthError")]
+        public string Name { get; set; }
+        public string Description { get; set; }
 
+        [Required(ErrorMessage = "PropertyDeadlineError")]
         [DataType(DataType.DateTime)]
         public DateTimeOffset Deadline { get; set; }
         public bool IsCompleted { get; set; }
