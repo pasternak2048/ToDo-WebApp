@@ -18,11 +18,11 @@
             <a asp-action="Create" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-success">@Localizer["CreateButton"]</a>
             @if (ViewBag.FilterStatus != ToDoFilter.OnlyOpenTasks)
             {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowAllButton"]</a>
+                <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowAllButton"]</a>
             }
             else
             {
-        <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowNotCompleted"]</a>
+                <a asp-action="Index" asp-route-filterOrder="@ViewBag.FilterStatus" asp-route-page="@Model.PageViewModel.PageNumber" class="btn btn-primary">@Localizer["ShowNotCompleted"]</a>
             }
             <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" />
             <input type="submit" value="@Localizer["SearchButton"]" class="btn btn-outline-primary" />
@@ -43,13 +43,13 @@
         <tr>
             @if (User.IsInRole("admin"))
             {
-            <th>
-                @Localizer["Email"]
-            </th>
+                <th>
+                    @Localizer["Email"]
+                </th>
             }
-        <th>
-            @Localizer["Name"]
-        </th>
+            <th>
+                @Localizer["Name"]
+            </th>
             <th>
                 @{ViewBag.FilterStatus = ViewBag.FilterStatus == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;}
                 <a asp-action="Index"
@@ -119,26 +119,26 @@
 @if (Model.PageViewModel.HasPreviousPage)
 {
 
-<a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-   asp-route-filterOrder="@ViewBag.FilterStatus"
-   asp-route-searchString="@ViewData["SearchFilter"]"
-   class="btn btn-outline-dark">
-    <i class="glyphicon glyphicon-chevron-left"></i>
-    @Localizer["PreviousPage"]
-</a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-filterOrder="@ViewBag.FilterStatus"
+       asp-route-searchString="@ViewData["SearchFilter"]"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        @Localizer["PreviousPage"]
+    </a>
 }
 @if (Model.PageViewModel.HasNextPage)
 {
 
-<a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-   asp-route-filterOrder="@ViewBag.FilterStatus"
-   asp-route-searchString="@ViewData["SearchFilter"]"
-   class="btn btn-outline-dark">
-    @Localizer["NextPage"]
-    <i class="glyphicon glyphicon-chevron-right"></i>
-</a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-filterOrder="@ViewBag.FilterStatus"
+       asp-route-searchString="@ViewData["SearchFilter"]"
+       class="btn btn-outline-dark">
+        @Localizer["NextPage"]
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
 }
 
 <a class="btn btn-block">@Model.PageViewModel.PageNumber</a>

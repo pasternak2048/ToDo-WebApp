@@ -37,7 +37,6 @@ namespace ToDo_App.Controllers
                                        || s.FirstName.Contains(searchString));
             }
 
-
             var count = items.Count();
 
             items = items.Skip((page - 1) * _pageSize).Take(_pageSize).ToList();
@@ -52,8 +51,8 @@ namespace ToDo_App.Controllers
             };
 
             return View(viewModel);
-
         }
+
 
         [Authorize(Roles = "admin")]
         public IActionResult Details(int? id, int page)
@@ -210,6 +209,7 @@ namespace ToDo_App.Controllers
         {
             return unitOfWork.Users.GetAll().Any();
         }
+
 
         private IEnumerable<User> GetSorted(IEnumerable<User> items, UsersSortState sortOrder)
         {

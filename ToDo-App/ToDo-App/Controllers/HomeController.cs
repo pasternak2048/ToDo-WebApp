@@ -14,7 +14,6 @@ using ToDo_App.Repositories;
 
 namespace ToDo_App.Controllers
 {
-    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -64,6 +63,7 @@ namespace ToDo_App.Controllers
             ViewData["DeveloperGitHubLink"] = _localizer["DeveloperGitHubLink"];
             return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -78,7 +78,6 @@ namespace ToDo_App.Controllers
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
-
             return LocalRedirect(returnUrl);
         }
     }

@@ -32,14 +32,13 @@ namespace ToDo_App.Controllers
             ViewData["FilterStatus"] = filterOrder == ToDoFilter.OnlyOpenTasks ? ToDoFilter.AllTasks : ToDoFilter.OnlyOpenTasks;
             ViewData["SearchFilter"] = searchString;
 
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 items = items.Where(s => s.Name.Contains(searchString)
                                        || s.Description.Contains(searchString));
             }
-            items = GetFilteredByTaskStatus(items, filterOrder);
 
+            items = GetFilteredByTaskStatus(items, filterOrder);
 
             if (currentUser.IsInRole("user"))
             {
@@ -58,7 +57,6 @@ namespace ToDo_App.Controllers
 
                 return View(viewModel);
             }
-
 
             else
             {

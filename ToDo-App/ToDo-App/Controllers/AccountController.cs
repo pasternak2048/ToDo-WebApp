@@ -20,14 +20,11 @@ namespace ToDo_App.Controllers
             unitOfWork = new UnitOfWork(context);
         }
 
-
-
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,7 +68,6 @@ namespace ToDo_App.Controllers
                 {
                     ModelState.AddModelError("", "Incorrect login or password");
                 }
-
             }
             return View(model);
         }
@@ -81,7 +77,6 @@ namespace ToDo_App.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,7 +98,6 @@ namespace ToDo_App.Controllers
             return View(model);
         }
 
-
         private async Task Authenticate(User user)
         {
             // creating one claim
@@ -123,7 +117,6 @@ namespace ToDo_App.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
         }
-
     }
 }
 
